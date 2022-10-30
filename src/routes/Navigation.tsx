@@ -1,48 +1,46 @@
-import { BrowserRouter } from "react-router-dom";
-import { Routes, Route, NavLink } from "react-router-dom";
-import ShoppingPage from "../02-component-patterns/pages/ShoppingPage";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  NavLink
+} from 'react-router-dom';
 
-import logo from "../logo.svg";
+import logo from '../logo.svg';
+import { ShoppingPage } from '../02-component-patterns/pages/ShoppingPage';
 
 export const Navigation = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <div className="main-layout">
         <nav>
-          <img src={logo} alt="react-logo" />
+            <img src={ logo } alt="React Logo" />
           <ul>
             <li>
-              <NavLink
-                to="/shopping"
-                className={({ isActive }) => (isActive ? "nav-active" : "")}
-              >
-                Shopping
-              </NavLink>
+              <NavLink to="/" activeClassName="nav-active" exact>Shopping</NavLink>
             </li>
             <li>
-              <NavLink
-                to="/about"
-                className={({ isActive }) => (isActive ? "nav-active" : "")}
-              >
-                About
-              </NavLink>
+              <NavLink to="/about" activeClassName="nav-active" exact>About</NavLink>
             </li>
             <li>
-              <NavLink
-                to="/users"
-                className={({ isActive }) => (isActive ? "nav-active" : "")}
-              >
-                Users
-              </NavLink>
+              <NavLink to="/users" activeClassName="nav-active" exact>Users</NavLink>
             </li>
           </ul>
         </nav>
-        <Routes>
-          <Route path="about" element={<h1>About Page</h1>} />
-          <Route path="users" element={<h1>Users Page</h1>} />
-          <Route path="shopping" element={<ShoppingPage />} />
-        </Routes>
+
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path="/about">
+            <h1>About</h1>
+          </Route>
+          <Route path="/users">
+            <h1>Users</h1>
+          </Route>
+          <Route path="/">
+            <ShoppingPage />
+          </Route>
+        </Switch>
       </div>
-    </BrowserRouter>
+    </Router>
   );
-};
+}
